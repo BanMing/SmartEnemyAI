@@ -24,13 +24,13 @@ public class SmartEnemyAI : ModuleRules
 
 		PublicIncludePaths.AddRange(new string[] {
 			"SmartEnemyAI",
-			"SmartEnemyAI/Variant_Platforming",
-			"SmartEnemyAI/Variant_Combat",
-			"SmartEnemyAI/Variant_Combat/AI",
-			"SmartEnemyAI/Variant_SideScrolling",
-			"SmartEnemyAI/Variant_SideScrolling/Gameplay",
-			"SmartEnemyAI/Variant_SideScrolling/AI"
-		});
+            "SmartEnemyAI/Variant/Variant_Platforming",
+            "SmartEnemyAI/Variant/Variant_Combat",
+            "SmartEnemyAI/Variant/Variant_Combat/AI",
+            "SmartEnemyAI/Variant/Variant_SideScrolling",
+            "SmartEnemyAI/Variant/Variant_SideScrolling/Gameplay",
+            "SmartEnemyAI/Variant/Variant_SideScrolling/AI"
+        });
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

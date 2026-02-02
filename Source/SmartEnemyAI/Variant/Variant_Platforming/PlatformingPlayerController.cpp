@@ -1,14 +1,14 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+#include "Variant/Variant_Platforming/PlatformingPlayerController.h"
 
-#include "Variant_Platforming/PlatformingPlayerController.h"
-#include "EnhancedInputSubsystems.h"
-#include "InputMappingContext.h"
-#include "Kismet/GameplayStatics.h"
-#include "GameFramework/PlayerStart.h"
-#include "PlatformingCharacter.h"
 #include "Engine/LocalPlayer.h"
 #include "Engine/World.h"
+#include "EnhancedInputSubsystems.h"
+#include "GameFramework/PlayerStart.h"
+#include "InputMappingContext.h"
+#include "Kismet/GameplayStatics.h"
+#include "PlatformingCharacter.h"
 
 void APlatformingPlayerController::SetupInputComponent()
 {
