@@ -60,6 +60,11 @@ void AEnemyCharacter::ChasePlayer(float AcceptanceRadius)
 	}
 }
 
+void AEnemyCharacter::Attack_Implementation()
+{
+	PlayAnimMontage(AttackAnim);
+}
+
 void AEnemyCharacter::OnMoveCompleted(FAIRequestID RequestID, EPathFollowingResult::Type MovementResult)
 {
 	if (!RequestID.IsEquivalent(CurAIMoveRequestID))

@@ -4,6 +4,7 @@
 
 #include "Character/BaseCharacter.h"
 #include "CoreMinimal.h"
+#include "Interfaces/EnemyInterface.h"
 #include "Navigation/PathFollowingComponent.h"
 
 #include "EnemyCharacter.generated.h"
@@ -12,11 +13,12 @@ DECLARE_LOG_CATEGORY_EXTERN(LogEnemyCharacter, Log, All);
 
 struct FAIRequestID;
 class AAIController;
-/**
+class UAnimMontage;
+	/**
  *
  */
 UCLASS()
-class SMARTENEMYAI_API AEnemyCharacter : public ABaseCharacter
+class SMARTENEMYAI_API AEnemyCharacter : public ABaseCharacter, public IEnemyInterface
 {
 	GENERATED_BODY()
 public:
@@ -29,6 +31,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ChasePlayer(float AcceptanceRadius);
 
+public:
+	// START IEnemyInterface START
+	void Attack_Implementation();
+	// END IEnemyInterface END
+
 protected:
 	UFUNCTION()
 	void OnMoveCompleted(FAIRequestID RequestID, EPathFollowingResult::Type MovementResult);
@@ -39,6 +46,9 @@ protected:
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "AI")
 	TObjectPtr<AAIController> AIController;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Animation")
+	TObjectPtr<UAnimMontage> AttackAnim;
 
 protected:
 	FAIRequestID CurAIMoveRequestID;
