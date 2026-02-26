@@ -65,6 +65,11 @@ void AEnemyCharacter::Attack_Implementation()
 	PlayAnimMontage(AttackAnim);
 }
 
+FOnAttackEndSignature& AEnemyCharacter::GetOnAttackEndDelegate()
+{
+	return OnAttackEnd;
+}
+
 void AEnemyCharacter::OnMoveCompleted(FAIRequestID RequestID, EPathFollowingResult::Type MovementResult)
 {
 	if (!RequestID.IsEquivalent(CurAIMoveRequestID))
@@ -93,3 +98,5 @@ void AEnemyCharacter::OnMoveCompleted(FAIRequestID RequestID, EPathFollowingResu
 	}
 	BP_OnMoveCompleted(MovementResult);
 }
+
+

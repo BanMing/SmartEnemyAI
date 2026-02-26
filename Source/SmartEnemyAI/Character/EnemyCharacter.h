@@ -10,11 +10,11 @@
 #include "EnemyCharacter.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogEnemyCharacter, Log, All);
-
 struct FAIRequestID;
 class AAIController;
 class UAnimMontage;
-	/**
+
+/**
  *
  */
 UCLASS()
@@ -33,6 +33,7 @@ public:
 
 public:
 	// START IEnemyInterface START
+	FOnAttackEndSignature& GetOnAttackEndDelegate() override;
 	void Attack_Implementation();
 	// END IEnemyInterface END
 
@@ -43,11 +44,15 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_OnMoveCompleted(EPathFollowingResult::Type MovementResult);
 
+public:
+	UPROPERTY(BlueprintCallable, BlueprintAssignable)
+	FOnAttackEndSignature OnAttackEnd;
+
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "AI")
 	TObjectPtr<AAIController> AIController;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Animation")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
 	TObjectPtr<UAnimMontage> AttackAnim;
 
 protected:
