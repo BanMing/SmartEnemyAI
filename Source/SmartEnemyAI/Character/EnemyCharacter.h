@@ -10,9 +10,11 @@
 #include "EnemyCharacter.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogEnemyCharacter, Log, All);
+
 struct FAIRequestID;
 class AAIController;
 class UAnimMontage;
+class APatrolRoute;
 
 /**
  *
@@ -35,6 +37,7 @@ public:
 	// START IEnemyInterface START
 	FOnAttackEndSignature& GetOnAttackEndDelegate() override;
 	void Attack_Implementation();
+	APatrolRoute* GetPatrolRoute_Implementation();
 	// END IEnemyInterface END
 
 protected:
@@ -51,6 +54,9 @@ public:
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "AI")
 	TObjectPtr<AAIController> AIController;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
+	TObjectPtr<APatrolRoute> PatrolRoute;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
 	TObjectPtr<UAnimMontage> AttackAnim;

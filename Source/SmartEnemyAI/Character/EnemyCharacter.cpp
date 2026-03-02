@@ -65,6 +65,11 @@ void AEnemyCharacter::Attack_Implementation()
 	PlayAnimMontage(AttackAnim);
 }
 
+APatrolRoute* AEnemyCharacter::GetPatrolRoute_Implementation()
+{
+	return PatrolRoute;
+}
+
 FOnAttackEndSignature& AEnemyCharacter::GetOnAttackEndDelegate()
 {
 	return OnAttackEnd;

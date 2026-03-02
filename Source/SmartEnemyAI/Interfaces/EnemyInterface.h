@@ -6,7 +6,10 @@
 #include "UObject/Interface.h"
 
 #include "EnemyInterface.generated.h"
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAttackEndSignature);
+
+class APatrolRoute;
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
@@ -34,4 +37,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	bool IsWiedingWeapon();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	APatrolRoute* GetPatrolRoute();
 };
