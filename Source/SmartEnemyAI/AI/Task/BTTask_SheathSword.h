@@ -5,18 +5,18 @@
 #include "BehaviorTree/BTTaskNode.h"
 #include "CoreMinimal.h"
 
-#include "BTTask_WieldWeapon.generated.h"
+#include "BTTask_SheathSword.generated.h"
 
 /**
  *
  */
 UCLASS()
-class SMARTENEMYAI_API UBTTask_WieldWeapon : public UBTTaskNode
+class SMARTENEMYAI_API UBTTask_SheathSword : public UBTTaskNode
 {
 	GENERATED_BODY()
 
 public:
-	UBTTask_WieldWeapon(const FObjectInitializer& ObjectInitializer);
+	UBTTask_SheathSword(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;

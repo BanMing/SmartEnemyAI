@@ -10,7 +10,7 @@
 
 UBTTask_MoveAlongPatrolRoute::UBTTask_MoveAlongPatrolRoute(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-	NodeName = "Clear Focus";
+	NodeName = "Move Along Patrol Route";
 }
 
 EBTNodeResult::Type UBTTask_MoveAlongPatrolRoute::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -48,6 +48,11 @@ EBTNodeResult::Type UBTTask_MoveAlongPatrolRoute::AbortTask(UBehaviorTreeCompone
 	}
 	MyOwnerComp = nullptr;
 
+	if (AAIController* const MyController = OwnerComp.GetAIOwner())
+	{
+		MyController->StopMovement();
+	}
+	
 	return EBTNodeResult::Aborted;
 }
 
@@ -55,6 +60,16 @@ void UBTTask_MoveAlongPatrolRoute::OnMoveToEnd(EPathFollowingResult::Type Moveme
 {
 	if (MyOwnerComp)
 	{
+		if (AAIController* const MyController = MyOwnerComp->GetAIOwner())
+		{
+			if (MyController->GetPawn()->Implements<UEnemyInterface>())
+			{
+				if (APatrolRoute* PatrolRoute = IEnemyInterface::Execute_GetPatrolRoute(MyController->GetPawn()))
+				{
+					PatrolRoute->IncrementPatrolRoute();
+				}
+			}
+		}
 		FinishLatentTask(*MyOwnerComp, EBTNodeResult::Succeeded);
 	}
 }

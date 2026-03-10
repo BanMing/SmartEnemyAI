@@ -2,12 +2,14 @@
 
 #pragma once
 
+#include "AI/AIDataTypes.h"
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
 
 #include "EnemyInterface.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAttackEndSignature);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnWeaponReadySignature, bool, bWieldWeapon);
 
 class APatrolRoute;
 
@@ -29,6 +31,8 @@ class SMARTENEMYAI_API IEnemyInterface
 public:
 	virtual FOnAttackEndSignature& GetOnAttackEndDelegate() = 0;
 
+	virtual FOnWeaponReadySignature& GetOnWeaponReadyDelegate() = 0;
+
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void Attack();
 
@@ -36,8 +40,14 @@ public:
 	void WieldingWeapon();
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void SheathWeapon();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	bool IsWiedingWeapon();
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	APatrolRoute* GetPatrolRoute();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	float SetMovement(EMovementSpeed MovementSpeed);
 };

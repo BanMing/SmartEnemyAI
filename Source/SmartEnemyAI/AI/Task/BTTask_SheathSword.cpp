@@ -1,23 +1,23 @@
 // Copyright BanMing
 
-#include "AI/Task/BTTask_WieldWeapon.h"
+#include "AI/Task/BTTask_SheathSword.h"
 
 #include "AIController.h"
 #include "Interfaces/EnemyInterface.h"
 
-UBTTask_WieldWeapon::UBTTask_WieldWeapon(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+UBTTask_SheathSword::UBTTask_SheathSword(const FObjectInitializer& ObjectInitializer)
 {
-	NodeName = "Wield Weapon";
+	NodeName = "Sheath Weapon";
 }
 
-EBTNodeResult::Type UBTTask_WieldWeapon::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+EBTNodeResult::Type UBTTask_SheathSword::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	AAIController* const MyController = OwnerComp.GetAIOwner();
 	EBTNodeResult::Type Result = EBTNodeResult::Failed;
 	MyOwnerComp = &OwnerComp;
 	if (IEnemyInterface* EnemyInterface = Cast<IEnemyInterface>(MyController->GetPawn()))
 	{
-		IEnemyInterface::Execute_WieldingWeapon(MyController->GetPawn());
+		IEnemyInterface::Execute_SheathWeapon(MyController->GetPawn());
 
 		if (!EnemyInterface->GetOnWeaponReadyDelegate().IsAlreadyBound(this, &ThisClass::OnWeaponReady))
 		{
@@ -28,9 +28,7 @@ EBTNodeResult::Type UBTTask_WieldWeapon::ExecuteTask(UBehaviorTreeComponent& Own
 	}
 	return Result;
 }
-
-
-EBTNodeResult::Type UBTTask_WieldWeapon::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+EBTNodeResult::Type UBTTask_SheathSword::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	AAIController* const MyController = OwnerComp.GetAIOwner();
 
@@ -45,7 +43,7 @@ EBTNodeResult::Type UBTTask_WieldWeapon::AbortTask(UBehaviorTreeComponent& Owner
 
 	return EBTNodeResult::Aborted;
 }
-void UBTTask_WieldWeapon::OnWeaponReady(bool bInWieldWeapon)
+void UBTTask_SheathSword::OnWeaponReady(bool bInWieldWeapon)
 {
 	if (MyOwnerComp)
 	{

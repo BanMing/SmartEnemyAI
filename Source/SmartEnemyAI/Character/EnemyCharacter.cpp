@@ -2,6 +2,7 @@
 #include "Character/EnemyCharacter.h"
 
 #include "AIController.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "NavigationSystem.h"
 
@@ -70,9 +71,21 @@ APatrolRoute* AEnemyCharacter::GetPatrolRoute_Implementation()
 	return PatrolRoute;
 }
 
+float AEnemyCharacter::SetMovement_Implementation(EMovementSpeed MovementSpeed)
+{
+	GetCharacterMovement()->MaxWalkSpeed = MovementSpeedMap[MovementSpeed];
+
+	return MovementSpeedMap[MovementSpeed];
+}
+
 FOnAttackEndSignature& AEnemyCharacter::GetOnAttackEndDelegate()
 {
 	return OnAttackEnd;
+}
+
+FOnWeaponReadySignature& AEnemyCharacter::GetOnWeaponReadyDelegate()
+{
+	return OnWeaponReady;
 }
 
 void AEnemyCharacter::OnMoveCompleted(FAIRequestID RequestID, EPathFollowingResult::Type MovementResult)
@@ -103,5 +116,3 @@ void AEnemyCharacter::OnMoveCompleted(FAIRequestID RequestID, EPathFollowingResu
 	}
 	BP_OnMoveCompleted(MovementResult);
 }
-
-

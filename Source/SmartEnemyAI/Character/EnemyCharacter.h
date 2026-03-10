@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AI/AIDataTypes.h"
 #include "Character/BaseCharacter.h"
 #include "CoreMinimal.h"
 #include "Interfaces/EnemyInterface.h"
@@ -36,8 +37,10 @@ public:
 public:
 	// START IEnemyInterface START
 	FOnAttackEndSignature& GetOnAttackEndDelegate() override;
+	FOnWeaponReadySignature& GetOnWeaponReadyDelegate() override;
 	void Attack_Implementation();
 	APatrolRoute* GetPatrolRoute_Implementation();
+	float SetMovement_Implementation(EMovementSpeed MovementSpeed);
 	// END IEnemyInterface END
 
 protected:
@@ -51,6 +54,9 @@ public:
 	UPROPERTY(BlueprintCallable, BlueprintAssignable)
 	FOnAttackEndSignature OnAttackEnd;
 
+	UPROPERTY(BlueprintCallable, BlueprintAssignable)
+	FOnWeaponReadySignature OnWeaponReady;
+
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "AI")
 	TObjectPtr<AAIController> AIController;
@@ -60,6 +66,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
 	TObjectPtr<UAnimMontage> AttackAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
+	TMap<EMovementSpeed, float> MovementSpeedMap;
 
 protected:
 	FAIRequestID CurAIMoveRequestID;
