@@ -1,0 +1,26 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "4.2.3",
+	"FriendlyName": "BlueprintAssist",
+	"Description": "Adds support for mouseless blueprint creation and navigation",
+	"Category": "Editor",
+	"CreatedBy": "fpwong",
+	"CanContainContent": false,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "BlueprintAssist",
+			"Type": "EditorNoCommandlet",
+			"LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Win64",
+				"Mac",
+				"Linux"
+			],
+			"TargetAllowList": [
+				"Editor"
+			]
+		}
+	]
+}
