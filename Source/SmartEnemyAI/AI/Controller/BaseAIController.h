@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AI/AIDataTypes.h"
 #include "AIController.h"
 #include "CoreMinimal.h"
 #include "Interfaces/AIControllerInterface.h"
@@ -15,6 +16,9 @@ UCLASS()
 class SMARTENEMYAI_API ABaseAIController : public AAIController, public IAIControllerInterface
 {
 	GENERATED_BODY()
+
+	ABaseAIController();
+
 protected:
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void OnUnPossess() override;
@@ -26,12 +30,33 @@ public:
 	void SetStatetoAttack_Implementation(AActor* Target);
 	void SetStatetoPassive_Implementation();
 
+public:
+	UFUNCTION(BlueprintPure)
+	bool CanSenseActor(AActor* Actor, EAISense AISense, FAIStimulus& OutAIStimulus);
+
+	UFUNCTION(BlueprintPure)
+	EAIState GetCurrentState() const;
+
+protected:
+	UFUNCTION()
+	void OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors);
+
+	void HandleSenseSight(AActor* Actor);
+	void HandleSenseHearing(FVector Location);
+	void HandleSenseDamage(AActor* Actor);
+
+protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly) TObjectPtr<UBehaviorTree> DefaultBT;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<class UAIPerceptionComponent> AIPerceptionComponent;
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TObjectPtr<UBehaviorTree> DefaultBT;
+	FName AttackTargetKeyName = "AttackTarget";
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	FName AttackTargetKeyName = "AttackTarget";
+	FName InvestigatingLocationKey = "InvestigatingLocation";
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FName StateKeyName = "State";

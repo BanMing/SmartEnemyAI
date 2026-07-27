@@ -24,3 +24,12 @@ enum class EAIState : uint8
 	Investigating,
 	Dead
 };
+
+UENUM(BlueprintType)
+enum class EAISense : uint8
+{
+	None,
+	Sight,
+	Hearing,
+	Damage
+};
