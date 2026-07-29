@@ -28,4 +28,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void SetStatetoPassive();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	AActor* GetAttackTarget();
+
 };

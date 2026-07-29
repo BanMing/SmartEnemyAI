@@ -5,6 +5,7 @@
 #include "AI/AIDataTypes.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/Character.h"
+#include "Interfaces/EnemyInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AIPerceptionSystem.h"
@@ -31,12 +32,21 @@ void ABaseAIController::OnUnPossess()
 void ABaseAIController::InitDefaultBT()
 {
 	RunBehaviorTree(DefaultBT);
-	ACharacter* TargetPlayer = UGameplayStatics::GetPlayerCharacter(this, 0);
 	Execute_SetStatetoPassive(this);
+
+	if (GetPawn()->Implements<UEnemyInterface>())
+	{
+		float OutAttackRadius;
+		float OutDefendRadius;
+		IEnemyInterface::Execute_GetIdealRange(GetPawn(), OutAttackRadius, OutDefendRadius);
+		Blackboard->SetValueAsFloat(AttackTargetKeyName, OutAttackRadius);
+		Blackboard->SetValueAsFloat(DefendRadiusKeyName, OutDefendRadius);
+	}
 }
 
 void ABaseAIController::SetStatetoAttack_Implementation(AActor* Target)
 {
+	AttackTarget = Target;
 	Blackboard->SetValueAsObject(AttackTargetKeyName, Target);
 	Blackboard->SetValueAsEnum(StateKeyName, (uint8) EAIState::Attacking);
 }
@@ -45,6 +55,11 @@ void ABaseAIController::SetStatetoPassive_Implementation()
 {
 	Blackboard->ClearValue(AttackTargetKeyName);
 	Blackboard->SetValueAsEnum(StateKeyName, (uint8) EAIState::Passive);
+}
+
+AActor* ABaseAIController::GetAttackTarget_Implementation()
+{
+	return AttackTarget.Get();
 }
 
 bool ABaseAIController::CanSenseActor(AActor* Actor, EAISense AISense, FAIStimulus& OutAIStimulus)

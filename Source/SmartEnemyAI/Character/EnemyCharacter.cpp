@@ -2,6 +2,7 @@
 #include "Character/EnemyCharacter.h"
 
 #include "AIController.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "NavigationSystem.h"
@@ -76,6 +77,12 @@ float AEnemyCharacter::SetMovement_Implementation(EMovementSpeed MovementSpeed)
 	GetCharacterMovement()->MaxWalkSpeed = MovementSpeedMap[MovementSpeed];
 
 	return MovementSpeedMap[MovementSpeed];
+}
+
+void AEnemyCharacter::GetIdealRange_Implementation(float& OutAttackRadius, float& OutDefendRadius)
+{
+	OutAttackRadius = AttackRadius;
+	OutDefendRadius = DefendRadius;
 }
 
 FOnAttackEndSignature& AEnemyCharacter::GetOnAttackEndDelegate()

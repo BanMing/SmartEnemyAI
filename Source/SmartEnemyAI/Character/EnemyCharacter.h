@@ -41,6 +41,7 @@ public:
 	void Attack_Implementation();
 	APatrolRoute* GetPatrolRoute_Implementation();
 	float SetMovement_Implementation(EMovementSpeed MovementSpeed);
+	void GetIdealRange_Implementation(float& OutAttackRadius, float& OutDefendRadius);
 	// END IEnemyInterface END
 
 protected:
@@ -69,6 +70,11 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
 	TMap<EMovementSpeed, float> MovementSpeedMap;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
+	float AttackRadius = 150.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
+	float DefendRadius = 350.f;
 
 protected:
 	FAIRequestID CurAIMoveRequestID;

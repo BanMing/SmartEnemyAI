@@ -29,6 +29,7 @@ public:
 
 	void SetStatetoAttack_Implementation(AActor* Target);
 	void SetStatetoPassive_Implementation();
+	AActor* GetAttackTarget_Implementation();
 
 public:
 	UFUNCTION(BlueprintPure)
@@ -51,6 +52,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<class UAIPerceptionComponent> AIPerceptionComponent;
 
+	UPROPERTY()
+	TWeakObjectPtr<AActor> AttackTarget;
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FName AttackTargetKeyName = "AttackTarget";
@@ -60,4 +64,10 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FName StateKeyName = "State";
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FName AttackRadiusKeyName = "AttackRadius";
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FName DefendRadiusKeyName = "DefendRadius";
 };

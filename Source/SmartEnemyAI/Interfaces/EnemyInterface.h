@@ -50,4 +50,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	float SetMovement(EMovementSpeed MovementSpeed);
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void GetIdealRange(float& OutAttackRadius, float& OutDefendRadius);
 };
