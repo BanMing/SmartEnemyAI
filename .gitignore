@@ -79,3 +79,4 @@ SmartEnemyAI.unrealvs
 
 # BlueprintAssist node size cache
 Plugins/**/BlueprintAssist/NodeSizeCache/*
+.omc
